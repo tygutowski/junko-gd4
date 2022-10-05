@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="FontFile" path="res://UI/RobotoMono-Light.ttf" id="1_l8kdu"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_l8kdu")
+theme_override_font_sizes/font_size = 66
+text = "health: 100
+ammo: 2"
+
+[node name="Camera2d" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+current = true

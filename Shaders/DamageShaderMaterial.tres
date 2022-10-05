@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://Shaders/DamageShader.gdshader" id="1_5weft"]
+
+[resource]
+shader = ExtResource("1_5weft")
+shader_parameter/whitening = 0.447

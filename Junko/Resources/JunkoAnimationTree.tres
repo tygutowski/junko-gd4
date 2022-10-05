@@ -1,0 +1,106 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=16 format=3 uid="uid://ck7wyvj4dm7vw"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_4ckr3"]
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_kd3j5"]
+enabled_inputs = 1
+input_0/name = "alive"
+input_0/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_i6yrb"]
+enabled_inputs = 3
+input_0/name = "attack_right"
+input_0/auto_advance = false
+input_1/name = "attack_left"
+input_1/auto_advance = false
+input_2/name = "attack_down"
+input_2/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a1p7b"]
+animation = &"JunkoAnimations/attack_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pxw06"]
+animation = &"JunkoAnimations/attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ixvrw"]
+animation = &"JunkoAnimations/attack_right"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_g72f7"]
+enabled_inputs = 2
+input_0/name = "attacking"
+input_0/auto_advance = false
+input_1/name = "not_attacking"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bdfvc"]
+animation = &"JunkoAnimations/falling"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_fiku6"]
+enabled_inputs = 2
+input_0/name = "ground"
+input_0/auto_advance = false
+input_1/name = "air"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqelx"]
+animation = &"JunkoAnimations/idle"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_y8kaf"]
+enabled_inputs = 2
+input_0/name = "idle"
+input_0/auto_advance = false
+input_1/name = "running"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_arkey"]
+animation = &"JunkoAnimations/jumping"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ft3ph"]
+enabled_inputs = 2
+input_0/name = "jumping"
+input_0/auto_advance = false
+input_1/name = "falling"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0c1l7"]
+animation = &"JunkoAnimations/running"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_v2n1x"]
+enabled_inputs = 1
+input_0/name = "undamaged"
+input_0/auto_advance = false
+
+[resource]
+graph_offset = Vector2(-890.83, -305.792)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_4ckr3")
+nodes/TimeScale/position = Vector2(-680, 80)
+nodes/alive/node = SubResource("AnimationNodeTransition_kd3j5")
+nodes/alive/position = Vector2(360, 220)
+nodes/attack_direction/node = SubResource("AnimationNodeTransition_i6yrb")
+nodes/attack_direction/position = Vector2(-420, -300)
+nodes/attack_down/node = SubResource("AnimationNodeAnimation_a1p7b")
+nodes/attack_down/position = Vector2(-800, -180)
+nodes/attack_left/node = SubResource("AnimationNodeAnimation_pxw06")
+nodes/attack_left/position = Vector2(-760, -300)
+nodes/attack_right/node = SubResource("AnimationNodeAnimation_ixvrw")
+nodes/attack_right/position = Vector2(-720, -420)
+nodes/attacking_or_not_attacking/node = SubResource("AnimationNodeTransition_g72f7")
+nodes/attacking_or_not_attacking/position = Vector2(-100, 100)
+nodes/falling/node = SubResource("AnimationNodeAnimation_bdfvc")
+nodes/falling/position = Vector2(-760, 340)
+nodes/ground_or_air/node = SubResource("AnimationNodeTransition_fiku6")
+nodes/ground_or_air/position = Vector2(-280, 160)
+nodes/idle/node = SubResource("AnimationNodeAnimation_jqelx")
+nodes/idle/position = Vector2(-780, -40)
+nodes/idle_or_running/node = SubResource("AnimationNodeTransition_y8kaf")
+nodes/idle_or_running/position = Vector2(-480, 100)
+nodes/jumping/node = SubResource("AnimationNodeAnimation_arkey")
+nodes/jumping/position = Vector2(-800, 220)
+nodes/jumping_or_falling/node = SubResource("AnimationNodeTransition_ft3ph")
+nodes/jumping_or_falling/position = Vector2(-480, 260)
+nodes/output/position = Vector2(520, 220)
+nodes/running/node = SubResource("AnimationNodeAnimation_0c1l7")
+nodes/running/position = Vector2(-980, 100)
+nodes/taking_damage/node = SubResource("AnimationNodeTransition_v2n1x")
+nodes/taking_damage/position = Vector2(160, 180)
+node_connections = [&"output", 0, &"alive", &"TimeScale", 0, &"running", &"alive", 0, &"taking_damage", &"attack_direction", 0, &"attack_right", &"attack_direction", 1, &"attack_left", &"attack_direction", 2, &"attack_down", &"attacking_or_not_attacking", 0, &"attack_direction", &"attacking_or_not_attacking", 1, &"ground_or_air", &"ground_or_air", 0, &"idle_or_running", &"ground_or_air", 1, &"jumping_or_falling", &"idle_or_running", 0, &"idle", &"idle_or_running", 1, &"TimeScale", &"jumping_or_falling", 0, &"jumping", &"jumping_or_falling", 1, &"falling", &"taking_damage", 0, &"attacking_or_not_attacking"]

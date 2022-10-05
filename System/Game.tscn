@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf61trhl7iq57"]
+
+[ext_resource type="PackedScene" uid="uid://ca8ibqgcpfpa5" path="res://Stages/Rubbled Caves/Rubbled Caves.tscn" id="1_mebny"]
+[ext_resource type="PackedScene" uid="uid://bje52qt6mc1qv" path="res://Junko/Junko.tscn" id="2_byqle"]
+[ext_resource type="Texture2D" uid="uid://jio5t2qikwaa" path="res://UI/healthbar.png" id="4_n6a46"]
+[ext_resource type="FontFile" uid="uid://bm58onntpaxx3" path="res://UI/RobotoMono-Light.ttf" id="6_cpwug"]
+
+[node name="Screen" type="Node2D"]
+texture_filter = 1
+texture_repeat = 1
+
+[node name="World" type="Node2D" parent="." groups=["world"]]
+
+[node name="Rubbled Caves" parent="World" instance=ExtResource("1_mebny")]
+
+[node name="Junko" parent="World" instance=ExtResource("2_byqle")]
+position = Vector2(-444, 148)
+
+[node name="PlayerCamera2d" type="Camera2D" parent="World"]
+position = Vector2(39.75, 106.75)
+current = true
+zoom = Vector2(4, 4)
+
+[node name="AnimationCamera2d" type="Camera2D" parent="World"]
+position = Vector2(39.75, 106.75)
+zoom = Vector2(4, 4)
+
+[node name="MenuItems" type="CanvasLayer" parent="." groups=["menu"]]
+
+[node name="Label" type="Label" parent="MenuItems"]
+offset_left = 16.0
+offset_top = 24.0
+offset_right = 828.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("6_cpwug")
+theme_override_font_sizes/font_size = 49
+text = "sexy, high resolution fonts!"
+
+[node name="TextureRect" type="TextureRect" parent="MenuItems"]
+texture_filter = 1
+offset_left = 20.0
+offset_top = 28.0
+offset_right = 44.0
+offset_bottom = 48.0
+scale = Vector2(4, 4)
+texture = ExtResource("4_n6a46")
+
+[node name="TextureRect2" type="TextureRect" parent="MenuItems"]
+texture_filter = 1
+offset_left = 132.0
+offset_top = 28.0
+offset_right = 156.0
+offset_bottom = 48.0
+scale = Vector2(4, 4)
+texture = ExtResource("4_n6a46")

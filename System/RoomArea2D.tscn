@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbfxc6x373mpd"]
+
+[ext_resource type="Script" path="res://System/RoomArea2D.gd" id="1_aln0y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43d3b"]
+size = Vector2(290, 295)
+
+[node name="RoomArea2D" type="Area2D" groups=["room"]]
+script = ExtResource("1_aln0y")
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_43d3b")
+
+[node name="TopLeft" type="Marker2D" parent="."]
+visible = false
+position = Vector2(-10, -10)
+
+[node name="BottomRight" type="Marker2D" parent="."]
+visible = false
+position = Vector2(10, 10)
+
+[connection signal="body_entered" from="." to="." method="_on_room_area_2d_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_room_area_2d_body_exited"]

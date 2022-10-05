@@ -1,0 +1,110 @@
+[gd_scene load_steps=11 format=3 uid="uid://bje52qt6mc1qv"]
+
+[ext_resource type="Script" path="res://Junko/Attacks/Junko.gd" id="1_b8owy"]
+[ext_resource type="Texture2D" uid="uid://d3lxeo8gko4ts" path="res://Junko/junko-sheet.png" id="2_05muw"]
+[ext_resource type="AnimationLibrary" uid="uid://xwfc238gr6sn" path="res://Junko/Resources/JunkoAnimations.res" id="3_jlsw3"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://ck7wyvj4dm7vw" path="res://Junko/Resources/JunkoAnimationTree.tres" id="4_0h130"]
+[ext_resource type="Texture2D" uid="uid://datsw71mji2l8" path="res://Junko/Attacks/attack-forward.png" id="5_rsstw"]
+[ext_resource type="Texture2D" uid="uid://bsmft58e8qn3e" path="res://Junko/Attacks/attack-down.png" id="6_qqghi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ekl6w"]
+size = Vector2(6, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7l50"]
+size = Vector2(24, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gi81c"]
+size = Vector2(24, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r02yc"]
+size = Vector2(12, 24)
+
+[node name="Junko" type="CharacterBody2D" groups=["junko"]]
+texture_filter = 1
+texture_repeat = 1
+script = ExtResource("1_b8owy")
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_ekl6w")
+
+[node name="Sprite2d" type="Sprite2D" parent="."]
+texture = ExtResource("2_05muw")
+hframes = 6
+vframes = 8
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"JunkoAnimations": ExtResource("3_jlsw3")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = ExtResource("4_0h130")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/TimeScale/scale = 1.0
+parameters/alive/current = 0
+parameters/attack_direction/current = 0
+parameters/attacking_or_not_attacking/current = 1
+parameters/ground_or_air/current = 0
+parameters/idle_or_running/current = 0
+parameters/jumping_or_falling/current = 0
+parameters/taking_damage/current = 0
+
+[node name="RoomPoint" type="Node2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="SwordRight" type="Node2D" parent="."]
+position = Vector2(0, -2)
+z_index = 2
+
+[node name="Sprite2d" type="Sprite2D" parent="SwordRight"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(12, 6)
+texture = ExtResource("5_rsstw")
+hframes = 3
+
+[node name="SwordArea2d" type="Area2D" parent="SwordRight" groups=["junko_attack"]]
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="SwordRight/SwordArea2d"]
+position = Vector2(16, 4.5)
+shape = SubResource("RectangleShape2D_u7l50")
+
+[node name="SwordLeft" type="Node2D" parent="."]
+position = Vector2(0, -2)
+z_index = 2
+
+[node name="Sprite2d" type="Sprite2D" parent="SwordLeft"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(-12, 6)
+texture = ExtResource("5_rsstw")
+flip_h = true
+hframes = 3
+
+[node name="SwordArea2d" type="Area2D" parent="SwordLeft" groups=["junko_attack"]]
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="SwordLeft/SwordArea2d"]
+position = Vector2(-16, 4.5)
+shape = SubResource("RectangleShape2D_gi81c")
+
+[node name="SwordDown" type="Node2D" parent="."]
+position = Vector2(-14, 18)
+
+[node name="Sprite2d" type="Sprite2D" parent="SwordDown"]
+visible = false
+position = Vector2(14, 5)
+z_index = 2
+texture = ExtResource("6_qqghi")
+hframes = 3
+frame = 2
+
+[node name="SwordArea2d" type="Area2D" parent="SwordDown" groups=["junko_attack"]]
+position = Vector2(14, -18)
+
+[node name="CollisionShape2d" type="CollisionShape2D" parent="SwordDown/SwordArea2d"]
+position = Vector2(0, 23)
+shape = SubResource("RectangleShape2D_r02yc")
+disabled = true
