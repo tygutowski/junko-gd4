@@ -3,18 +3,23 @@
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_4ckr3"]
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_kd3j5"]
-enabled_inputs = 1
 input_0/name = "alive"
 input_0/auto_advance = false
+input_0/reset = true
+input_1/name = "test"
+input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_i6yrb"]
-enabled_inputs = 3
 input_0/name = "attack_right"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "attack_left"
 input_1/auto_advance = false
+input_1/reset = true
 input_2/name = "attack_down"
 input_2/auto_advance = false
+input_2/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a1p7b"]
 animation = &"JunkoAnimations/attack_down"
@@ -26,52 +31,56 @@ animation = &"JunkoAnimations/attack_left"
 animation = &"JunkoAnimations/attack_right"
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_g72f7"]
-enabled_inputs = 2
 input_0/name = "attacking"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "not_attacking"
 input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bdfvc"]
 animation = &"JunkoAnimations/falling"
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_fiku6"]
-enabled_inputs = 2
 input_0/name = "ground"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "air"
 input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jqelx"]
 animation = &"JunkoAnimations/idle"
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_y8kaf"]
-enabled_inputs = 2
 input_0/name = "idle"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "running"
 input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_arkey"]
 animation = &"JunkoAnimations/jumping"
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ft3ph"]
-enabled_inputs = 2
 input_0/name = "jumping"
 input_0/auto_advance = false
+input_0/reset = true
 input_1/name = "falling"
 input_1/auto_advance = false
+input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0c1l7"]
 animation = &"JunkoAnimations/running"
 
 [sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_v2n1x"]
-enabled_inputs = 1
 input_0/name = "undamaged"
 input_0/auto_advance = false
+input_0/reset = true
 
 [resource]
-graph_offset = Vector2(-890.83, -305.792)
+graph_offset = Vector2(-819.011, -58.0844)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_4ckr3")
 nodes/TimeScale/position = Vector2(-680, 80)
 nodes/alive/node = SubResource("AnimationNodeTransition_kd3j5")
@@ -97,7 +106,7 @@ nodes/idle_or_running/position = Vector2(-480, 100)
 nodes/jumping/node = SubResource("AnimationNodeAnimation_arkey")
 nodes/jumping/position = Vector2(-800, 220)
 nodes/jumping_or_falling/node = SubResource("AnimationNodeTransition_ft3ph")
-nodes/jumping_or_falling/position = Vector2(-480, 260)
+nodes/jumping_or_falling/position = Vector2(-480, 280)
 nodes/output/position = Vector2(520, 220)
 nodes/running/node = SubResource("AnimationNodeAnimation_0c1l7")
 nodes/running/position = Vector2(-980, 100)

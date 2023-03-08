@@ -1,7 +1,7 @@
-##################################################
+####################################################
 ### Determine where rooms exist and what happens 
 ### when the player walks from one room to another
-###################################################
+####################################################
 
 extends Area2D
 
@@ -50,6 +50,6 @@ func _on_room_area_2d_body_exited(body):
 		player_inside = false
 		var room_to_pan_to = find_room()
 		if room_to_pan_to != null:
-			if find_room() != junko.get_room():
-				junko.pan_camera(find_room())
+			if room_to_pan_to != junko.get_room():
+				junko.pan_camera(room_to_pan_to)
 

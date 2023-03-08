@@ -32,7 +32,6 @@ shape = SubResource("RectangleShape2D_ekl6w")
 texture = ExtResource("2_05muw")
 hframes = 6
 vframes = 8
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -44,62 +43,80 @@ tree_root = ExtResource("4_0h130")
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/TimeScale/scale = 1.0
-parameters/alive/current = 0
-parameters/attack_direction/current = 0
-parameters/attacking_or_not_attacking/current = 1
-parameters/ground_or_air/current = 0
-parameters/idle_or_running/current = 0
-parameters/jumping_or_falling/current = 0
-parameters/taking_damage/current = 0
+parameters/alive/current_state = "alive"
+parameters/alive/transition_request = ""
+parameters/alive/current_index = 0
+parameters/attack_direction/current_state = "attack_right"
+parameters/attack_direction/transition_request = "attack_down"
+parameters/attack_direction/current_index = 0
+parameters/attacking_or_not_attacking/current_state = "not_attacking"
+parameters/attacking_or_not_attacking/transition_request = ""
+parameters/attacking_or_not_attacking/current_index = 1
+parameters/ground_or_air/current_state = "ground"
+parameters/ground_or_air/transition_request = ""
+parameters/ground_or_air/current_index = 0
+parameters/idle_or_running/current_state = "idle"
+parameters/idle_or_running/transition_request = ""
+parameters/idle_or_running/current_index = 0
+parameters/jumping_or_falling/current_state = "falling"
+parameters/jumping_or_falling/transition_request = "jumping"
+parameters/jumping_or_falling/current_index = 1
+parameters/taking_damage/current_state = "undamaged"
+parameters/taking_damage/transition_request = ""
+parameters/taking_damage/current_index = 0
 
 [node name="RoomPoint" type="Node2D" parent="."]
 position = Vector2(0, 8)
 
 [node name="SwordRight" type="Node2D" parent="."]
-position = Vector2(0, -2)
 z_index = 2
+position = Vector2(0, -2)
 
 [node name="Sprite2d" type="Sprite2D" parent="SwordRight"]
+visible = false
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(12, 6)
 texture = ExtResource("5_rsstw")
 hframes = 3
+frame = 2
 
 [node name="SwordArea2d" type="Area2D" parent="SwordRight" groups=["junko_attack"]]
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordRight/SwordArea2d"]
 position = Vector2(16, 4.5)
 shape = SubResource("RectangleShape2D_u7l50")
+disabled = true
 
 [node name="SwordLeft" type="Node2D" parent="."]
-position = Vector2(0, -2)
 z_index = 2
+position = Vector2(0, -2)
 
 [node name="Sprite2d" type="Sprite2D" parent="SwordLeft"]
+visible = false
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(-12, 6)
 texture = ExtResource("5_rsstw")
 flip_h = true
 hframes = 3
+frame = 2
 
 [node name="SwordArea2d" type="Area2D" parent="SwordLeft" groups=["junko_attack"]]
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordLeft/SwordArea2d"]
 position = Vector2(-16, 4.5)
 shape = SubResource("RectangleShape2D_gi81c")
+disabled = true
 
 [node name="SwordDown" type="Node2D" parent="."]
 position = Vector2(-14, 18)
 
 [node name="Sprite2d" type="Sprite2D" parent="SwordDown"]
-visible = false
-position = Vector2(14, 5)
 z_index = 2
+position = Vector2(14, 5)
 texture = ExtResource("6_qqghi")
 hframes = 3
-frame = 2
 
 [node name="SwordArea2d" type="Area2D" parent="SwordDown" groups=["junko_attack"]]
 position = Vector2(14, -18)
@@ -107,4 +124,3 @@ position = Vector2(14, -18)
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordDown/SwordArea2d"]
 position = Vector2(0, 23)
 shape = SubResource("RectangleShape2D_r02yc")
-disabled = true

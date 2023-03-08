@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://d1wwa8mutwejy"]
 
-[ext_resource type="FontFile" path="res://UI/RobotoMono-Light.ttf" id="1_l8kdu"]
+[ext_resource type="FontFile" uid="uid://bm58onntpaxx3" path="res://UI/RobotoMono-Light.ttf" id="1_l8kdu"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -14,4 +14,3 @@ ammo: 2"
 
 [node name="Camera2d" type="Camera2D" parent="."]
 position = Vector2(960, 540)
-current = true

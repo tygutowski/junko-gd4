@@ -1,3 +1,6 @@
+##################################################
+### Character Controller
+##################################################
 extends CharacterBody2D
 
 # This is the emulated dimensions of the screen.
@@ -15,10 +18,10 @@ const JUMP_VELOCITY = -275
 var coyote_frame_counter = 0
 
 var max_jumps = 2
-var jumps_remaining := max_jumps
+var jumps_remaining = max_jumps
 
 var max_health = 4
-var health := max_health
+var health = max_health
 
 var damage = 4
 
@@ -26,7 +29,6 @@ var facing_direction = 1
 var walking_direction = 0
 
 var camera_offset = Vector2.ZERO
-var camera_in_animation = true
 var current_room = null
 
 var currently_attacking = false
@@ -46,14 +48,17 @@ var currently_attacking = false
 @onready var sword_down = get_node("SwordDown")
 
 func set_animation(animation_name, value):
-	animation_tree.set("parameters/" + animation_name + "/current", value)
+	animation_tree.set("parameters/" + animation_name + "/transition_request", value)
 
 func _ready():
-	set_animation("alive_or_dead", 0) # alive
-	set_animation("undamaged_or_damaged", 0) # undamaged
-	set_animation("ground_or_air", 0) # ground
-	set_animation("idle_or_running", 0) # idle
-	set_animation("attacking_or_not_attacking", 1)
+	set_animation("alive", "alive") # alive
+	set_animation("attack_direction", "attack_right") # alive
+	set_animation("attacking_or_not_attacking", "not_attacking") # ground
+	set_animation("ground_or_air", "ground") # idle
+	set_animation("idle_or_running", "idle")
+	animation_tree.set("parameters/TimeScale/scale", 1)
+	set_animation("jumping_or_falling", "falling")
+	set_animation("taking_damage", "undamaged") # undamaged
 	sword_right.get_node("Sprite2d").visible = false
 	sword_left.get_node("Sprite2d").visible = false
 	sword_down.get_node("Sprite2d").visible = false
@@ -62,7 +67,6 @@ func _ready():
 	sword_down.get_node("SwordArea2d/CollisionShape2d").disabled = true
 
 func _physics_process(delta):
-	print(player_camera.global_position)
 	camera_follow_player()
 	manage_movement(delta)
 	manage_animations()
@@ -76,26 +80,26 @@ func _physics_process(delta):
 func manage_movement(delta):
 	# Vertical Movement
 	if is_on_floor():
-		set_animation("ground_or_air", 0) # ground
+		set_animation("ground_or_air", "ground") # ground
 		jumps_remaining = max_jumps
 	elif !is_on_floor():
-		set_animation("ground_or_air", 1) # air
+		set_animation("ground_or_air", "air") # air
 		# Jumping upward
 		if velocity.y <= 0:
-			set_animation("jumping_or_falling", 0) # jumping
+			set_animation("jumping_or_falling", "jumping") # jumping
 		# Falling downward
 		elif velocity.y > 0: 
-			set_animation("jumping_or_falling", 1) # falling
+			set_animation("jumping_or_falling", "falling") # falling
 		velocity.y += gravity * delta
 	
 	# Horizontal Movement
 	velocity.x = move_toward(velocity.x, walking_direction * MAX_RUN, RUN_ACCELERATION)
 	if velocity.x > 0:
-		set_animation("idle_or_running", 1)
+		set_animation("idle_or_running", "running")
 	elif velocity.x < 0:
-		set_animation("idle_or_running", 1)
+		set_animation("idle_or_running", "running")
 	elif velocity.x == 0:
-		set_animation("idle_or_running", 0)
+		set_animation("idle_or_running", "idle")
 	
 	walking_direction = Input.get_axis("left", "right")
 	
@@ -106,11 +110,11 @@ func manage_movement(delta):
 	if Input.is_action_just_pressed("attack") && !currently_attacking:
 		set_animation("attacking_or_not_attacking", 0)
 		if Input.is_action_pressed("down") && !is_on_floor():
-			set_animation("attack_direction", 2)
+			set_animation("attack_direction", "attack_down")
 		elif facing_direction == 1:
-			set_animation("attack_direction", 0)
+			set_animation("attack_direction", "attack_right")
 		elif facing_direction == -1:
-			set_animation("attack_direction", 1)
+			set_animation("attack_direction", "attack_left")
 	
 	move_and_slide()
 
@@ -133,7 +137,7 @@ func manage_animations():
 ######################################################################
 
 func camera_follow_player():
-	if(!camera_in_animation):
+	if(!animation_camera.enabled):
 		player_camera.global_position = global_position + camera_offset # pans from player to offset
 		player_camera.global_position.x = round(global_position.x)
 		player_camera.global_position.y = round(global_position.y)
@@ -145,9 +149,9 @@ func pan_camera(room):
 	current_room = room
 	animation_tree.set("parameters/TimeScale/scale", 0) # pause junko's animation
 	set_physics_process(false) # freeze the game
-	camera_in_animation = true
 	# and set it as the current camera
-	animation_camera.current = true
+	animation_camera.enabled = true
+	player_camera.enabled = false
 	# defines where initial camera center is
 	# bug with godot doesnt define where camera's position is, even if its out of bounds
 	player_camera.global_position.x = clamp(player_camera.global_position.x, player_camera.limit_left + screen_width/2, player_camera.limit_right - screen_width/2)
@@ -166,9 +170,7 @@ func pan_camera(room):
 	player_camera.global_position.y = clamp(global_position.y, player_camera.limit_top + screen_height/2, player_camera.limit_bottom - screen_height/2)
 	#yield(get_tree(), "idle_frame")
 	# moves animation_camera to player_camera
-	var tween = create_tween()
-	print("Play GP: " + str(player_camera.global_position))
-	print("Anim GP: " + str(animation_camera.global_position))
+	var tween = get_tree().create_tween()
 	tween.tween_property(animation_camera, "global_position",
 		player_camera.global_position, .7)
 	tween.set_trans(Tween.TRANS_LINEAR)
@@ -176,10 +178,10 @@ func pan_camera(room):
 	await tween.finished
 	print("Play GP: " + str(player_camera.global_position))
 	print("Anim GP: " + str(animation_camera.global_position))
-	camera_in_animation = false
-	player_camera.current = true
+	player_camera.enabled = true
+	animation_camera.enabled = false
 	set_physics_process(true)
-	animation_tree.set("parameters/TimeScale/scale", 1)
+	animation_tree.set("parameters/TimeScale/scale", 1) # was parameters/TimeScale/scale
 
 # Snaps the camera to a specific room. This is used for initializing the camera
 # when loading from a menu or from a save.
@@ -196,5 +198,5 @@ func snap_camera(room):
 	player_camera.global_position.x = clamp(global_position.x, player_camera.limit_left + screen_width/2, player_camera.limit_right - screen_width/2)
 	player_camera.global_position.y = clamp(global_position.y, player_camera.limit_top + screen_height/2, player_camera.limit_bottom - screen_height/2)
 	animation_camera.global_position = player_camera.global_position
-	camera_in_animation = false
-	player_camera.current = true
+	animation_camera.enabled = false
+	player_camera.enabled = true

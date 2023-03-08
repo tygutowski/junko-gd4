@@ -1,14 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://ca8ibqgcpfpa5"]
+[gd_scene load_steps=5 format=3 uid="uid://ca8ibqgcpfpa5"]
 
 [ext_resource type="TileSet" uid="uid://b7ht1dce57255" path="res://Stages/Rubbled Caves/Tilemap.tres" id="1_572il"]
 [ext_resource type="PackedScene" uid="uid://dbfxc6x373mpd" path="res://System/RoomArea2D.tscn" id="2_6gyul"]
-[ext_resource type="PackedScene" uid="uid://ir13ph6oevyp" path="res://Enemies/Dummy/Dummy.tscn" id="3_c87g5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8nffa"]
-size = Vector2(975, 505)
+size = Vector2(525.5, 282)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g66oh"]
-size = Vector2(707.176, 445.874)
+size = Vector2(560.897, 299.242)
 
 [node name="Rubbled Caves" type="Node2D"]
 metadata/_edit_horizontal_guides_ = []
@@ -22,14 +21,11 @@ layer_0/tile_data = PackedInt32Array(-393182, 589824, 3, -458718, 589824, 2, -52
 
 [node name="Room1" type="Node" parent="."]
 
-[node name="DamageDummy" parent="Room1" instance=ExtResource("3_c87g5")]
-position = Vector2(-375, 147)
-
 [node name="RoomArea2D" parent="Room1" instance=ExtResource("2_6gyul")]
 
 [node name="CollisionShape2d" parent="Room1/RoomArea2D" index="0"]
 visible = false
-position = Vector2(-142, -60.5)
+position = Vector2(-366.75, 57)
 shape = SubResource("RectangleShape2D_8nffa")
 
 [node name="TopLeft" parent="Room1/RoomArea2D" index="1"]
@@ -40,14 +36,11 @@ position = Vector2(358, 187)
 
 [node name="Room2" type="Node" parent="."]
 
-[node name="DamageDummy" parent="Room2" instance=ExtResource("3_c87g5")]
-position = Vector2(440, 11)
-
 [node name="RoomArea2D 2" parent="Room2" instance=ExtResource("2_6gyul")]
-visible = false
 
 [node name="CollisionShape2d" parent="Room2/RoomArea2D 2" index="0"]
-position = Vector2(702, -31)
+visible = false
+position = Vector2(176.449, 48.3789)
 shape = SubResource("RectangleShape2D_g66oh")
 
 [node name="TopLeft" parent="Room2/RoomArea2D 2" index="1"]
