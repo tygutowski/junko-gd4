@@ -7,5 +7,9 @@ Junko's primary objective is to repair other, broken, robots.
 Some robots that Junko repairs will be enemies, while others will be friends.
 
 # Places
-The Citadel
-The Junkyard
+* The Citadel
+* The Junkyard
+
+# Movement Upgrades
+* Double Jump - Gives the user a second jump mid-air
+* Blink - Allows the user to dash infinitely far right or left until they hit a wall.
