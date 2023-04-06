@@ -5,8 +5,8 @@ extends CharacterBody2D
 
 # This is the emulated dimensions of the screen.
 # The game natively runs 1920x1080, but is scaled down to 480x270.
-var screen_width = 480.0
-var screen_height = 270.0
+var screen_width = 320.0
+var screen_height = 180.0
 
 const MAX_RUN = 100
 const RUN_ACCELERATION = 15
@@ -108,14 +108,13 @@ func manage_movement(delta):
 		jumps_remaining -= 1
 		
 	if Input.is_action_just_pressed("attack") && !currently_attacking:
-		set_animation("attacking_or_not_attacking", 0)
+		set_animation("attacking_or_not_attacking", "attacking")
 		if Input.is_action_pressed("down") && !is_on_floor():
 			set_animation("attack_direction", "attack_down")
 		elif facing_direction == 1:
 			set_animation("attack_direction", "attack_right")
 		elif facing_direction == -1:
 			set_animation("attack_direction", "attack_left")
-	
 	move_and_slide()
 
 

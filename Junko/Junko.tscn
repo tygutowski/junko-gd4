@@ -1,23 +1,23 @@
 [gd_scene load_steps=11 format=3 uid="uid://bje52qt6mc1qv"]
 
 [ext_resource type="Script" path="res://Junko/Attacks/Junko.gd" id="1_b8owy"]
-[ext_resource type="Texture2D" uid="uid://d3lxeo8gko4ts" path="res://Junko/junko-sheet.png" id="2_05muw"]
+[ext_resource type="Texture2D" uid="uid://bh7yccb720y8o" path="res://Junko/small-junko-sheet.png" id="2_q7gfg"]
 [ext_resource type="AnimationLibrary" uid="uid://xwfc238gr6sn" path="res://Junko/Resources/JunkoAnimations.res" id="3_jlsw3"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://ck7wyvj4dm7vw" path="res://Junko/Resources/JunkoAnimationTree.tres" id="4_0h130"]
 [ext_resource type="Texture2D" uid="uid://datsw71mji2l8" path="res://Junko/Attacks/attack-forward.png" id="5_rsstw"]
 [ext_resource type="Texture2D" uid="uid://bsmft58e8qn3e" path="res://Junko/Attacks/attack-down.png" id="6_qqghi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekl6w"]
-size = Vector2(6, 16)
+size = Vector2(6, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7l50"]
-size = Vector2(24, 19)
+size = Vector2(18, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gi81c"]
-size = Vector2(24, 19)
+size = Vector2(18, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r02yc"]
-size = Vector2(12, 24)
+size = Vector2(12, 19)
 
 [node name="Junko" type="CharacterBody2D" groups=["junko"]]
 texture_filter = 1
@@ -25,14 +25,14 @@ texture_repeat = 1
 script = ExtResource("1_b8owy")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_ekl6w")
 
 [node name="Sprite2d" type="Sprite2D" parent="."]
-texture = ExtResource("2_05muw")
+texture = ExtResource("2_q7gfg")
 hframes = 6
-vframes = 8
-frame = 1
+vframes = 4
+frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -71,47 +71,41 @@ position = Vector2(0, 8)
 
 [node name="SwordRight" type="Node2D" parent="."]
 z_index = 2
-position = Vector2(0, -2)
+position = Vector2(-1, -2)
 
 [node name="Sprite2d" type="Sprite2D" parent="SwordRight"]
-visible = false
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(12, 6)
 texture = ExtResource("5_rsstw")
 hframes = 3
-frame = 2
 
 [node name="SwordArea2d" type="Area2D" parent="SwordRight" groups=["junko_attack"]]
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordRight/SwordArea2d"]
-position = Vector2(16, 4.5)
+position = Vector2(13, 2.5)
 shape = SubResource("RectangleShape2D_u7l50")
-disabled = true
 
 [node name="SwordLeft" type="Node2D" parent="."]
 z_index = 2
-position = Vector2(0, -2)
+position = Vector2(1, -2)
 
 [node name="Sprite2d" type="Sprite2D" parent="SwordLeft"]
-visible = false
 texture_filter = 1
 texture_repeat = 1
 position = Vector2(-12, 6)
 texture = ExtResource("5_rsstw")
 flip_h = true
 hframes = 3
-frame = 2
 
 [node name="SwordArea2d" type="Area2D" parent="SwordLeft" groups=["junko_attack"]]
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordLeft/SwordArea2d"]
-position = Vector2(-16, 4.5)
+position = Vector2(-13, 2.5)
 shape = SubResource("RectangleShape2D_gi81c")
-disabled = true
 
 [node name="SwordDown" type="Node2D" parent="."]
-position = Vector2(-14, 18)
+position = Vector2(-14, 15)
 
 [node name="Sprite2d" type="Sprite2D" parent="SwordDown"]
 z_index = 2
@@ -123,5 +117,5 @@ hframes = 3
 position = Vector2(14, -18)
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordDown/SwordArea2d"]
-position = Vector2(0, 23)
+position = Vector2(0, 20.5)
 shape = SubResource("RectangleShape2D_r02yc")

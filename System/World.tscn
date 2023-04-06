@@ -8,10 +8,12 @@
 [node name="Rubbled Caves" parent="." instance=ExtResource("1_wmm7d")]
 
 [node name="Junko" parent="." instance=ExtResource("2_xa0ij")]
-position = Vector2(-444, 148)
+position = Vector2(-452, -157)
 
 [node name="PlayerCamera2d" type="Camera2D" parent="."]
 position = Vector2(39.75, 106.75)
+zoom = Vector2(6, 6)
 
 [node name="AnimationCamera2d" type="Camera2D" parent="."]
 position = Vector2(39.75, 106.75)
+zoom = Vector2(6, 6)
