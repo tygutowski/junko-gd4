@@ -17,8 +17,6 @@ size = Vector2(330, 180)
 metadata/_edit_horizontal_guides_ = []
 
 [node name="TileMap" type="TileMap" parent="."]
-light_mask = 513
-visibility_layer = 513
 texture_filter = 1
 texture_repeat = 1
 tile_set = ExtResource("1_572il")

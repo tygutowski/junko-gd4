@@ -1,21 +1,19 @@
-extends StaticBody2D
+extends CharacterBody2D
 class_name Enemy
 
-var health = 20
-@onready var junko = get_tree().get_first_node_in_group("junko")
+var MAX_HEALTH = 20
+var health
 
 func _ready():
-	get_node("AnimationPlayer").current_animation = "RESET"
+	health = MAX_HEALTH
 
-func _on_area_2d_area_entered(area):
-	if(area.is_in_group("junko_attack")):
-		take_damage()
-
-func take_damage():
-	health -= junko.damage
+func take_damage(damage):
+	health -= damage
 	if health <= 0:
 		die()
 	get_node("AnimationPlayer").play("take_damage")
 
 func die():
-	get_node("AnimationPlayer").play("die")
+	queue_free()
+	#get_node("AnimationPlayer").play("die")
+

@@ -8,12 +8,15 @@ extends CharacterBody2D
 var screen_width = 320.0
 var screen_height = 180.0
 
-const MAX_RUN = 100
+var i_frames = 0
+var max_i_frames = 60
+
+const MAX_RUN = 75
 const RUN_ACCELERATION = 15
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-const MAX_FALL = 275
-const JUMP_VELOCITY = -275
+const MAX_FALL = 200
+const JUMP_VELOCITY = -200
 
 var coyote_frame_counter = 0
 
@@ -23,7 +26,7 @@ var jumps_remaining = max_jumps
 var max_health = 4
 var health = max_health
 
-var damage = 4
+var attack_damage = 4
 
 var facing_direction = 1
 var walking_direction = 0
@@ -67,6 +70,10 @@ func _ready():
 	sword_down.get_node("SwordArea2d/CollisionShape2d").disabled = true
 
 func _physics_process(delta):
+	if i_frames > 0:
+		i_frames -= 1
+	elif i_frames <= 0:
+		get_node("HitBox").set_deferred("monitoring", true)
 	camera_follow_player()
 	manage_movement(delta)
 	manage_animations()
@@ -199,3 +206,30 @@ func snap_camera(room):
 	animation_camera.global_position = player_camera.global_position
 	animation_camera.enabled = false
 	player_camera.enabled = true
+
+func take_damage(dir, damage):
+	get_node("HitBox").set_deferred("monitoring", false)
+	i_frames = max_i_frames
+	velocity = dir * 200
+	velocity.y -= 100
+	health -= damage
+	if health <= 0:
+		get_tree().reload_current_scene()
+
+func hit_enemy():
+	pass
+
+func hit_enemy_down_area(area):
+	var enemy = area.get_parent()
+	enemy.take_damage(attack_damage)
+	velocity.y = JUMP_VELOCITY
+
+func hit_enemy_down_body(body):
+	if body is TileMap:
+		velocity.y = JUMP_VELOCITY
+
+# If you walk into an enemy hitbox
+func _on_hit_box_area_entered(area):
+	var damage = area.get_parent().damage
+	var ouch_direction = area.global_position.direction_to(global_position).normalized()
+	take_damage(ouch_direction, damage)

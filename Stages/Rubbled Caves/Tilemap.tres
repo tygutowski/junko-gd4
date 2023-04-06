@@ -901,10 +901,10 @@ texture_region_size = Vector2i(8, 8)
 
 [resource]
 tile_size = Vector2i(8, 8)
-physics_layer_0/collision_layer = 513
-physics_layer_0/collision_mask = 513
-physics_layer_1/collision_layer = 4096
-physics_layer_1/collision_mask = 4096
+physics_layer_0/collision_layer = 544
+physics_layer_0/collision_mask = 581
+physics_layer_1/collision_layer = 4128
+physics_layer_1/collision_mask = 4165
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Outer"
 terrain_set_0/terrain_0/color = Color(0.219608, 0.403922, 0.556863, 1)

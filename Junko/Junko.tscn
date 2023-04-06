@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bje52qt6mc1qv"]
+[gd_scene load_steps=12 format=3 uid="uid://bje52qt6mc1qv"]
 
 [ext_resource type="Script" path="res://Junko/Attacks/Junko.gd" id="1_b8owy"]
 [ext_resource type="Texture2D" uid="uid://bh7yccb720y8o" path="res://Junko/small-junko-sheet.png" id="2_q7gfg"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bsmft58e8qn3e" path="res://Junko/Attacks/attack-down.png" id="6_qqghi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekl6w"]
-size = Vector2(6, 13)
+size = Vector2(6, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7l50"]
 size = Vector2(18, 15)
@@ -17,22 +17,26 @@ size = Vector2(18, 15)
 size = Vector2(18, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r02yc"]
-size = Vector2(12, 19)
+size = Vector2(6, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tggku"]
+size = Vector2(6, 12)
 
 [node name="Junko" type="CharacterBody2D" groups=["junko"]]
 texture_filter = 1
 texture_repeat = 1
+collision_mask = 112
 script = ExtResource("1_b8owy")
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_ekl6w")
 
 [node name="Sprite2d" type="Sprite2D" parent="."]
 texture = ExtResource("2_q7gfg")
 hframes = 6
 vframes = 4
-frame = 4
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -81,6 +85,8 @@ texture = ExtResource("5_rsstw")
 hframes = 3
 
 [node name="SwordArea2d" type="Area2D" parent="SwordRight" groups=["junko_attack"]]
+collision_layer = 2
+collision_mask = 136
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordRight/SwordArea2d"]
 position = Vector2(13, 2.5)
@@ -99,6 +105,8 @@ flip_h = true
 hframes = 3
 
 [node name="SwordArea2d" type="Area2D" parent="SwordLeft" groups=["junko_attack"]]
+collision_layer = 2
+collision_mask = 136
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordLeft/SwordArea2d"]
 position = Vector2(-13, 2.5)
@@ -115,7 +123,20 @@ hframes = 3
 
 [node name="SwordArea2d" type="Area2D" parent="SwordDown" groups=["junko_attack"]]
 position = Vector2(14, -18)
+collision_layer = 2
+collision_mask = 168
 
 [node name="CollisionShape2d" type="CollisionShape2D" parent="SwordDown/SwordArea2d"]
 position = Vector2(0, 20.5)
 shape = SubResource("RectangleShape2D_r02yc")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_tggku")
+
+[connection signal="area_entered" from="SwordDown/SwordArea2d" to="." method="hit_enemy_down_area"]
+[connection signal="body_entered" from="SwordDown/SwordArea2d" to="." method="hit_enemy_down_body"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
