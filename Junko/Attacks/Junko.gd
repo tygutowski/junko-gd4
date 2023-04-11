@@ -54,6 +54,8 @@ func set_animation(animation_name, value):
 	animation_tree.set("parameters/" + animation_name + "/transition_request", value)
 
 func _ready():
+	get_node("HitBox").set_deferred("monitoring", true)
+	set_health(max_health)
 	set_animation("alive", "alive") # alive
 	set_animation("attack_direction", "attack_right") # alive
 	set_animation("attacking_or_not_attacking", "not_attacking") # ground
@@ -80,6 +82,13 @@ func _physics_process(delta):
 	frame_passes()
 	position.x = round(position.x)
 	position.y = round(position.y)
+	
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		print(DisplayServer.window_get_mode())
+		if DisplayServer.window_get_mode() == 4:
+			DisplayServer.window_set_mode(0)
+		else:
+			DisplayServer.window_set_mode(4)
 	
 	if Input.is_action_just_pressed("close"):
 		get_tree().quit()
@@ -113,6 +122,9 @@ func manage_movement(delta):
 	if Input.is_action_just_pressed("jump") && jumps_remaining > 0:
 		velocity.y = JUMP_VELOCITY
 		jumps_remaining -= 1
+		var jump_particles = load("res://Particles/JumpParticles.tscn").instantiate()
+		jump_particles.global_position = get_node("feet").global_position
+		get_node("../Particles").add_child(jump_particles)
 		
 	if Input.is_action_just_pressed("attack") && !currently_attacking:
 		set_animation("attacking_or_not_attacking", "attacking")
@@ -207,21 +219,24 @@ func snap_camera(room):
 	animation_camera.enabled = false
 	player_camera.enabled = true
 
-func take_damage(dir, damage):
+func take_damage(dir):
 	get_node("HitBox").set_deferred("monitoring", false)
 	i_frames = max_i_frames
 	velocity = dir * 200
 	velocity.y -= 100
-	health -= damage
-	if health <= 0:
-		get_tree().reload_current_scene()
+	set_health(health - 1)
 
 func hit_enemy():
 	pass
 
+func hit_side_area(area):
+	var enemy = area.get_parent()
+	enemy.take_damage(4)
+	velocity.x += 2
+
 func hit_enemy_down_area(area):
 	var enemy = area.get_parent()
-	enemy.take_damage(attack_damage)
+	enemy.take_damage(4)
 	velocity.y = JUMP_VELOCITY
 
 func hit_enemy_down_body(body):
@@ -230,6 +245,16 @@ func hit_enemy_down_body(body):
 
 # If you walk into an enemy hitbox
 func _on_hit_box_area_entered(area):
-	var damage = area.get_parent().damage
 	var ouch_direction = area.global_position.direction_to(global_position).normalized()
-	take_damage(ouch_direction, damage)
+	take_damage(ouch_direction)
+
+func set_health(new_health):
+	health = new_health
+	var healthbar = get_tree().get_first_node_in_group("healthbar")
+	for i in max_health:
+		healthbar.get_node("health" + str(i+1)).visible = false
+	for i in health:
+		healthbar.get_node("health" + str(i+1)).visible = true
+	# die
+	if health <= 0:
+		get_tree().reload_current_scene()

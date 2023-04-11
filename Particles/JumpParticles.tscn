@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bes4bjp3yr816"]
+
+[ext_resource type="Texture2D" uid="uid://b23u31yss4bho" path="res://Junko/jump-particles.png" id="1_n8teh"]
+[ext_resource type="Script" path="res://Particles/JumpParticles.gd" id="2_vb1vi"]
+
+[node name="Sprite2D" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_n8teh")
+offset = Vector2(0, -3.5)
+script = ExtResource("2_vb1vi")

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://didwxffjdhy7r" path="res://Enemies/drill-robot-sheet.png" id="2_tqymq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3u5a"]
-size = Vector2(10, 11)
+size = Vector2(10, 12)
 
 [sub_resource type="Shader" id="Shader_p8wiq"]
 code = "shader_type canvas_item;
@@ -21,13 +21,13 @@ shader = SubResource("Shader_p8wiq")
 shader_parameter/whitening = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjm85"]
-size = Vector2(12, 10)
+size = Vector2(10, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itgxn"]
-size = Vector2(12, 7)
+size = Vector2(11, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmxpo"]
-size = Vector2(12, 7)
+size = Vector2(11, 5)
 
 [sub_resource type="Animation" id="Animation_mqaub"]
 resource_name = "moving"
@@ -90,7 +90,7 @@ script = ExtResource("1_0brpm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 64
 visibility_layer = 64
-position = Vector2(0, 0.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_x3u5a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -99,36 +99,37 @@ texture_repeat = 1
 material = SubResource("ShaderMaterial_f5d0b")
 texture = ExtResource("2_tqymq")
 hframes = 4
+frame = 2
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["enemy hitbox"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 light_mask = 0
 visibility_layer = 0
-position = Vector2(0, 1)
+position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_tjm85")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-11, -2.5)
+position = Vector2(-10.5, 0.5)
 shape = SubResource("RectangleShape2D_itgxn")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(11, -2.5)
+position = Vector2(10.5, 0.5)
 shape = SubResource("RectangleShape2D_xmxpo")
 
 [node name="RayCast2D" type="RayCast2D" parent="." groups=["raycast"]]
-position = Vector2(17, 0)
-target_position = Vector2(0, 7)
+position = Vector2(16, 0)
+target_position = Vector2(0, 11)
 collision_mask = 32
 
 [node name="RayCast2D2" type="RayCast2D" parent="." groups=["raycast"]]
-position = Vector2(-17, 0)
-target_position = Vector2(0, 7)
+position = Vector2(-16, 0)
+target_position = Vector2(0, 11)
 collision_mask = 32
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

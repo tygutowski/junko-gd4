@@ -1,14 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cf61trhl7iq57"]
+[gd_scene load_steps=4 format=3 uid="uid://cf61trhl7iq57"]
 
 [ext_resource type="PackedScene" uid="uid://ca8ibqgcpfpa5" path="res://Stages/Rubbled Caves/Rubbled Caves.tscn" id="1_wmm7d"]
 [ext_resource type="PackedScene" uid="uid://bje52qt6mc1qv" path="res://Junko/Junko.tscn" id="2_xa0ij"]
+[ext_resource type="PackedScene" uid="uid://c8bhw7dq254ab" path="res://UI/UI.tscn" id="3_8lmd3"]
 
 [node name="World" type="Node2D" groups=["world"]]
 
 [node name="Rubbled Caves" parent="." instance=ExtResource("1_wmm7d")]
 
 [node name="Junko" parent="." instance=ExtResource("2_xa0ij")]
-position = Vector2(-452, -157)
+z_index = 2
+position = Vector2(-415, -158)
 
 [node name="PlayerCamera2d" type="Camera2D" parent="."]
 position = Vector2(39.75, 106.75)
@@ -17,3 +19,7 @@ zoom = Vector2(6, 6)
 [node name="AnimationCamera2d" type="Camera2D" parent="."]
 position = Vector2(39.75, 106.75)
 zoom = Vector2(6, 6)
+
+[node name="UI" parent="." instance=ExtResource("3_8lmd3")]
+
+[node name="Particles" type="Node2D" parent="."]

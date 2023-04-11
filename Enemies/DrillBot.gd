@@ -3,7 +3,7 @@ extends CharacterBody2D
 var SPEED = 20.0
 var GRAVITY = 100.0
 var direction = 1
-var MAX_HEALTH = 100.0
+var MAX_HEALTH = 20.0
 var health = MAX_HEALTH
 var damage = 1
 
@@ -32,6 +32,7 @@ func _physics_process(_delta):
 
 func take_damage(damage):
 	health -= damage
+	print(health)
 	if health <= 0:
 		die()
 	get_node("AnimationPlayer").play("take_damage")

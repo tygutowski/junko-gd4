@@ -9,6 +9,7 @@ func _ready():
 
 func take_damage(damage):
 	health -= damage
+	print(health)
 	if health <= 0:
 		die()
 	get_node("AnimationPlayer").play("take_damage")
